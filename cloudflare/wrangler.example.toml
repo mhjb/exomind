@@ -1,0 +1,9 @@
+# Cloudflare Pages project for shared Exo-mind notes. See README → "Sharing notes".
+# Copy this file to wrangler.toml (which git ignores) and put your KV namespace ID in it.
+name = "exo-mind-share"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"
+
+[[kv_namespaces]]
+binding = "SHARES"
+id = "PUT-YOUR-KV-NAMESPACE-ID-HERE"

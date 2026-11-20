@@ -1,0 +1,44 @@
+appId: nz.co.bartlettprojects.exo-mind
+productName: Exo-mind
+
+directories:
+  output: dist-app
+  buildResources: build-resources
+
+files:
+  - electron/**/*
+  - package.json
+  # The main process uses Node built-ins and electron, nothing else. The server is bundled into
+  # one file with its dependencies (scripts/build-app.mjs), so node_modules stays out entirely.
+  - "!node_modules/**/*"
+
+# The bundled server and the built UI. No node_modules in there, so extraResources copies it
+# whole: no afterPack hook is needed to put it back.
+extraResources:
+  - from: app-server
+    to: server
+
+# The server is forked from Resources/server, outside any archive, so asar only covers the
+# main process; there is nothing native to unpack or rebuild.
+asar: true
+
+# Chromium's own strings (context menus, error pages, the spell checker's UI) in ~55 languages:
+# 50MB of the bundle. The interface is English, so only English is kept.
+electronLanguages: [en]
+npmRebuild: false
+
+mac:
+  target:
+    - target: dir
+      arch: [arm64]
+    - target: dmg
+      arch: [arm64]
+  category: public.app-category.productivity
+  icon: build-resources/icon.png
+  # Unsigned. The first time, right-click → Open; macOS remembers after that.
+  identity: null
+  hardenedRuntime: false
+  gatekeeperAssess: false
+
+dmg:
+  title: Exo-mind

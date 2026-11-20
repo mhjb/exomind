@@ -1,0 +1,14 @@
+node_modules/
+dist/
+data/
+vault/
+.DS_Store
+*.log
+_to_delete/
+.wrangler/
+app-server/
+dist-app/
+.env
+.env.*
+!.env.example
+Claude outputs/
